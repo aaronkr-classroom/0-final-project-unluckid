@@ -66,10 +66,10 @@ app.use(express.json());
  * Define routes
  * =====================================================================
  */
-
+const methodOverride = require('method-override');
 const router = express.Router(); // Express 라우터를 인스턴스화
 app.use("/", router); // 라우터를 애플리케이션에 추가
-
+app.use(methodOverride('_method'));
 /**
  * Pages
  */

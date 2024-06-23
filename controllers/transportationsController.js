@@ -81,7 +81,7 @@ module.exports = {
           return res.status(404).send('Transportation not found');
         }
         res.render("transportations/edit", {
-          transportation: transportation,
+          transportation:transportation,
           page: "edit-transportation",
           title: "Edit Transportation",
         });
@@ -117,9 +117,9 @@ module.exports = {
     Transportation.findByIdAndUpdate(transportationId, {
       $set: transportationParams
     }) 
-    .then((transportation) => {
+    .then((transportations) => {
       res.locals.redirect = `/transportations/${transportationId}`;
-      res.locals.transportation = transportation;
+      res.locals.transportations = transportations;
       next(); // 지역 변수로서 응답하기 위해 사용자를 추가하고 다음 미들웨어 함수 호출
     })
     .catch((error) => {
@@ -130,7 +130,7 @@ module.exports = {
 
   delete: (req, res, next) => {
     let transportationId = req.params.id;
-    Transportation.findByIdAndDelete(transportationId)
+    Transportation.findByIdAndRemove(transportationId)
       .then(() => {
         res.locals.redirect = "/transportations";
         next();

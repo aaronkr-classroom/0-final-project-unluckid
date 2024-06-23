@@ -112,11 +112,13 @@ module.exports = {
   // edit 액션 추가
   edit: (req, res, next) => {
     let talkId = req.params.id;
-    Talk.findById(talkId) // ID로 데이터베이스에서 사용자를 찾기 위한 findById 사용
+    Talk.findById(talkId) // ID로 데이터베이스에서 특정 토크를 찾음
       .then((talk) => {
         res.render("talks/edit", {
           talk: talk,
-        }); // 데이터베이스에서 내 특정 사용자를 위한 편집 페이지 렌더링
+          page: "edit-talk",
+          title: "Edit Talk",
+        }); // 데이터베이스에서 특정 토크를 편집하는 페이지를 렌더링
       })
       .catch((error) => {
         console.log(`Error fetching talk by ID: ${error.message}`);
@@ -124,10 +126,13 @@ module.exports = {
       });
   },
 
+  // update 액션과 delete 액션은 이전과 동일하게 유지
+
   // update 액션 추가
   update: (req, res, next) => {
     let talkId = req.params.id,
       talkParams = {
+        // 업데이트할 토크 정보를 요청 바디로부터 가져옴
         name: {
           first: req.body.first,
           last: req.body.last,
@@ -136,15 +141,15 @@ module.exports = {
         username: req.body.username,
         password: req.body.password,
         profileImg: req.body.profileImg,
-      }; // 요청으로부터 사용자 파라미터 취득
+      };
 
     Talk.findByIdAndUpdate(talkId, {
       $set: talkParams,
-    }) //ID로 사용자를 찾아 단일 명령으로 레코드를 수정하기 위한 findByIdAndUpdate의 사용
+    }) // ID로 특정 토크를 찾아 업데이트
       .then((talk) => {
         res.locals.redirect = `/talks/${talkId}`;
         res.locals.talk = talk;
-        next(); // 지역 변수로서 응답하기 위해 사용자를 추가하고 다음 미들웨어 함수 호출
+        next(); // 업데이트 완료 후 다음 미들웨어 함수 호출
       })
       .catch((error) => {
         console.log(`Error updating talk by ID: ${error.message}`);
@@ -152,13 +157,10 @@ module.exports = {
       });
   },
 
-  /**
-   * Listing 20.9 (p. 298)
-   * delete 액션의 추가
-   */
+  // delete 액션 추가
   delete: (req, res, next) => {
     let talkId = req.params.id;
-    Talk.findByIdAndRemove(talkId) // findByIdAndRemove 메소드를 이용한 사용자 삭제
+    Talk.findByIdAndRemove(talkId) // ID로 특정 토크를 찾아 삭제
       .then(() => {
         res.locals.redirect = "/talks";
         next();
