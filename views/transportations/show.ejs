@@ -1,0 +1,44 @@
+<!-- views/transportations/show.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="py-5">
+      <div class="text-center">
+        <h1 class="mb-3"><%= transportation.name %></h1>
+        <p class="lead">Details of the selected transportation method.</p>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><%= transportation.name %></h5>
+          <p class="card-text"><%= transportation.description %></p>
+          <p class="card-text">
+            <strong>Type:</strong> <%= transportation.type %><br>
+            <strong>Departure:</strong> <%= transportation.departureTime ? transportation.departureTime.toLocaleString() : 'N/A' %><br>
+            <strong>Arrival:</strong> <%= transportation.arrivalTime ? transportation.arrivalTime.toLocaleString() : 'N/A' %>
+          </p>
+          <a href="/transportations/<%= transportation._id %>/edit" class="btn btn-secondary">Edit</a>
+          <form action="/transportations/<%= transportation._id %>/delete" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="mt-5 text-center">
+        <a href="/transportations" class="btn btn-primary">Back to List</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

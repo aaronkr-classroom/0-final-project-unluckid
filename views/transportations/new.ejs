@@ -1,0 +1,56 @@
+<main class="container">
+  <div class="py-5">
+    <div class="text-center">
+      <h1 class="mb-3">Add New Transportation</h1>
+      <p class="lead">Ready to add a new transportation method?</p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <form action="/transportations/create" method="POST">
+              <div class="mb-3">
+                <label for="name" class="form-label">Transportation Name</label>
+                <input type="text" name="name" id="name" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="type" class="form-label">Type</label>
+                <select name="type" id="type" class="form-control" required>
+                  <option value="" disabled selected>Select type...</option>
+                  <option value="Train">Train</option>
+                  <option value="Bus">Bus</option>
+                  <option value="Flight">Flight</option>
+                  <option value="Ferry">Ferry</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="departureTime" class="form-label">Departure Time</label>
+                <input type="datetime-local" name="departureTime" id="departureTime" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="arrivalTime" class="form-label">Arrival Time</label>
+                <input type="datetime-local" name="arrivalTime" id="arrivalTime" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-primary">Add Transportation</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 text-center">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <figure class="mb-0">
+              <img src="https://img.hankyung.com/photo/202311/AKR20231121126500063_02_i_P4.jpg" alt="Transportation Image">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,65 @@
+<!-- views/transportations/edit.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Transportation</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .btn-cancel {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="py-5 text-center">
+      <h1>Edit Transportation</h1>
+      <p class="lead">Modify the details of the transportation mode.</p>
+    </div>
+    
+    <form  method="POST" action="/transportations/${transportation.id}/update?_method=PUT` %>">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= transportation.name %>" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description"><%= transportation.description %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="type">Type</label>
+        <select class="form-control" id="type" name="type">
+          <option value="Train" <%= transportation.type === "Train" ? "selected" : "" %>>Train</option>
+          <option value="Bus" <%= transportation.type === "Bus" ? "selected" : "" %>>Bus</option>
+          <option value="Flight" <%= transportation.type === "Flight" ? "selected" : "" %>>Flight</option>
+          <option value="Ferry" <%= transportation.type === "Ferry" ? "selected" : "" %>>Ferry</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="departureTime">Departure Time</label>
+        <input type="datetime-local" class="form-control" id="departureTime" name="departureTime" value="<%= transportation.departureTime ? transportation.departureTime.toISOString().slice(0, 16) : '' %>">
+      </div>
+
+      <div class="form-group">
+        <label for="arrivalTime">Arrival Time</label>
+        <input type="datetime-local" class="form-control" id="arrivalTime" name="arrivalTime" value="<%= transportation.arrivalTime ? transportation.arrivalTime.toISOString().slice(0, 16) : '' %>">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Update Transportation</button>
+      <a href="/transportations/<%= transportation._id %>" class="btn btn-secondary btn-cancel">Cancel</a>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

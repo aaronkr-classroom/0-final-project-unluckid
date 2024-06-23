@@ -1,0 +1,63 @@
+<!-- views/transportations/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List of Transportations</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .card {
+      margin-bottom: 20px;
+    }
+    .card-header {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-custom {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="py-5 text-center">
+      <h1>List of Transportations</h1>
+      <p class="lead">Explore various modes of transportation and make your reservations easily.</p>
+    </div>
+    
+    <div class="row">
+      <% transportations.forEach(transportation => { %>
+        <div class="col-md-4">
+          <div class="card shadow-sm">
+            <div class="card-header">
+              <h5 class="card-title"><%= transportation.name %></h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text"><%= transportation.description %></p>
+              <p class="card-text">
+                <strong>Type:</strong> <%= transportation.type %><br>
+                <strong>Departure:</strong> <%= transportation.departureTime ? transportation.departureTime.toLocaleString() : 'N/A' %><br>
+                <strong>Arrival:</strong> <%= transportation.arrivalTime ? transportation.arrivalTime.toLocaleString() : 'N/A' %>
+              </p>
+              <a href="/transportations/<%= transportation._id %>" class="btn btn-primary btn-custom">View</a>
+              <a href="/transportations/<%= transportation._id %>/edit" class="btn btn-secondary btn-custom">Edit</a>
+              <form action="/transportations/<%= transportation._id %>/delete" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-danger btn-custom">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="/transportations/new" class="btn btn-success btn-lg">Create New Transportation</a>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

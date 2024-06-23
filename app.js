@@ -11,7 +11,7 @@
 const express = require("express"), // express를 요청
   layouts = require("express-ejs-layouts"), // express-ejs-layout의 요청
   app = express(); // express 애플리케이션의 인스턴스화
-
+ 
 // controllers 폴더의 파일을 요청
 const pagesController = require("./controllers/pagesController"),
   subscribersController = require("./controllers/subscribersController"),
@@ -19,8 +19,8 @@ const pagesController = require("./controllers/pagesController"),
   coursesController = require("./controllers/coursesController"),
   talksController = require("./controllers/talksController"),
   trainsController = require("./controllers/trainsController"),
-  errorController = require("./controllers/errorController");
-
+  errorController = require("./controllers/errorController"),
+  transportationsController = require("./controllers/transportationsController");
 /**
  * =====================================================================
  * Define Mongoose and MongoDB connection
@@ -28,18 +28,20 @@ const pagesController = require("./controllers/pagesController"),
  */
 
 // 애플리케이션에 Mongoose 설정
-const mongoose = require("mongoose"), // mongoose를 요청
-  dbName = "ut-nodejs";
+const mongoose = require("mongoose"); // mongoose를 요청
 
 // 데이터베이스 연결 설정
-mongoose.connect(`mongodb://127.0.0.1:27017/${dbName}`, {
-  useNewUrlParser: true,
-});
-
 // 연결되면 메시지를 보냄
+mongoose.connect(
+  "mongodb+srv://mymarket67:1234@cluster0.tagycdz.mongodb.net/",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 const db = mongoose.connection;
 db.once("open", () => {
-  console.log(`Connected to ${dbName} MongoDB using Mongoose!`);
+  console.log("connected to MongoDB!!");
 });
 
 /**
@@ -73,7 +75,7 @@ app.use("/", router); // 라우터를 애플리케이션에 추가
  */
 router.get("/", pagesController.showHome); // 홈 페이지 위한 라우트 추가
 router.get("/about", pagesController.showAbout); // 코스 페이지 위한 라우트 추가
-router.get("/transportation", pagesController.showTransportation); // 교통수단 페이지 위한 라우트 추가
+
 
 /**
  * Subscribers
@@ -192,13 +194,22 @@ router.get("/trains/:id/edit", trainsController.edit); // viewing을 처리하�
 router.put(
   "/trains/:id/update",
   trainsController.update,
-  trainsController.redirectView
-); // 편집 폼에서 받아온 데이터의 처리와 결과를 사용자 보기 페이지에 보여주기
+  trainsController.redirectView); // 편집 폼에서 받아온 데이터의 처리와 결과를 사용자 보기 페이지에 보여주기
 router.delete(
   "/trains/:id/delete",
   trainsController.delete,
   trainsController.redirectView
 );
+
+router.get("/transportation", transportationsController.showTransportation);
+router.get("/transportations", transportationsController.index, transportationsController.indexView);
+router.get("/transportations/new", transportationsController.new);
+router.post("/transportations/create", transportationsController.create, transportationsController.redirectView);
+router.get("/transportations/:id", transportationsController.show, transportationsController.showView);
+router.get("/transportations/:id/edit", transportationsController.edit);
+router.put("/transportations/:id/update", transportationsController.update, transportationsController.redirectView);
+router.delete("/transportations/:id/delete", transportationsController.delete, transportationsController.redirectView);
+
 
 /**
  * =====================================================================

@@ -1,4 +1,3 @@
-<!-- layout.ejs -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +8,7 @@
     <title>Final Project | <%= title %></title>
     <!-- @TODO: title태그를 완성하십시오 -->
 
-    <meta name="author" content="Aaron" />
+    <meta name="author" content="김현성 (2026019)" />
     <!-- @TODO: 자기 이름을 작성하십시오 -->
 
     <!-- @TODO: CSS 파일에 대한 link테그를 완성하십시오 -->
@@ -27,13 +26,19 @@
     <!-- <link rel="stylesheet" href="/css/aaronkr.css" /> -->
   </head>
   <body>
-    <%- include('_partials/_header') %> <%- body %> <%-
-    include('_partials/_footer') %>
+    <%- include('_partials/_header') %>
+    <%- body %>
+    <%- include('_partials/_footer') %>
+
+    <!-- Navigation Bar -->
+
+    <!-- Footer -->
+   
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="/js/jquery-3.7.0.slim.js"></script>
-    
+
     <!-- Popper Development version -->
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
 
@@ -47,8 +52,4 @@
     <script src="/js/functions.js"></script>
   </body>
 
-  <!--
-    [노트] 레이아웃 파일은 방문하는 모든 페이지상에서 렌더링된다.
-    한 번 < %- body % >의 전후로 HTML 콘텐츠를 추가해보라. 
-    모든 페이지에 추가 내용이 반영될 것이다.
---></html>
+</html>
